@@ -1,0 +1,40 @@
+PODS:
+  - AffdexSDK-iOS (4.0.1):
+    - AWSKinesis
+  - AWSCore (2.6.17)
+  - AWSKinesis (2.6.17):
+    - AWSCore (= 2.6.17)
+  - MarqueeLabel/Swift (3.1.4)
+  - NotificationBannerSwift (1.6.2):
+    - MarqueeLabel/Swift
+    - SnapKit (~> 4.0)
+  - PKHUD (5.0.0)
+  - SnapKit (4.0.0)
+
+DEPENDENCIES:
+  - AffdexSDK-iOS
+  - NotificationBannerSwift
+  - PKHUD (~> 5.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AffdexSDK-iOS
+    - AWSCore
+    - AWSKinesis
+    - MarqueeLabel
+    - NotificationBannerSwift
+    - PKHUD
+    - SnapKit
+
+SPEC CHECKSUMS:
+  AffdexSDK-iOS: 46f04df6a0259957190f3a592ccd0b33367b3d66
+  AWSCore: 82fbb01d73a22cfae77ac2f03f6073a123092452
+  AWSKinesis: 342e84eb54eda89d247b14b32cf5240c7f0e4d46
+  MarqueeLabel: bf768455fe88d427f71476ebb23f9092b660f40b
+  NotificationBannerSwift: 4eceb2add9d5eaa0596c63d49690b4d6476e74ec
+  PKHUD: 3c001512c6e002091184197a8de7a20420786e3b
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+
+PODFILE CHECKSUM: 6c5959495824071ad447f4ae8ed6a857f4345944
+
+COCOAPODS: 1.5.0
