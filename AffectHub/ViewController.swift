@@ -10,10 +10,12 @@ import UIKit
 import CoreData
 import NotificationBannerSwift
 import PKHUD
+import MessageUI
+import Zip
 
 class ViewController: UIViewController {
 
-    var participantName:String!
+    var participantName:String = "unknown"
     
     // Bluetooth Device Shared Controllers
     let bioHarness = BioHarness.sharedInstance
@@ -21,6 +23,9 @@ class ViewController: UIViewController {
     let affdex = AffdexController.sharedInstance
     let directory = DirectoryModel.sharedInstance
 
+    var leftE4:String!
+    var rightE4:String!
+    
     // MARK: - Outlets
     @IBOutlet var leftE4Indicator: Circle!
     @IBOutlet var rightE4Indicator: Circle!
@@ -43,6 +48,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func connectBioHarness(_ sender: Any) {
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
         bioHarness.connect()
     }
     
@@ -53,14 +60,15 @@ class ViewController: UIViewController {
     @IBAction func startNewSession(_ sender: Any) {
         
         if participantName == nil {
+            startButton.setTitle("Stop", for: .normal)
             newParticipant()
-            startButton.titleLabel?.text = "Finish"
         } else {
             affdex.stop()
             bioHarness.disconnect()
             e4.disconnect()
-            
+            print("trying to export...")
             exportData()
+            startButton.setTitle("Start", for: .normal)
         }
         
     }
@@ -71,9 +79,8 @@ class ViewController: UIViewController {
         
         e4.delegate = self
         e4.connectDelegate = self
-        
         bioHarness.delegate = self
-        
+        affdex.delegate = self
         
         e4.authenticate()
         
@@ -95,6 +102,7 @@ class ViewController: UIViewController {
     
     
     func newParticipant(withId id:String) {
+        participantName = id
         directory.subjectId = id
         _ = directory.createSubjectDirectory(directoryName: id)
     }
@@ -102,29 +110,32 @@ class ViewController: UIViewController {
     func assignWrists() {
         let names = self.e4.e4.e4Names
         if names.count == 2 {
-            let str1 = names.first!
-            let str2 = names.last!
-            let idx1 = str1.index(str1.endIndex, offsetBy: -6)
-            let idx2 = str2.index(str2.endIndex, offsetBy: -6)
-            let name1 = String(str1[idx1...])
-            let name2 = String(str2[idx2...])
+            let name1 = names.first!
+            let name2 = names.last!
+
             
             let alert = UIAlertController(title: "Which is on the left?",
-                                          message: "Select the Empatica E4 id located on your left wrist",
+                                          message: "Select the Empatica E4 ID located on your LEFT wrist",
                                           preferredStyle: .alert)
             
             let action1 = UIAlertAction(title: name1,
                                            style: .default) {
                                             [unowned self] action in
                                             self.beginSavingE4(left: name1, right: name2)
-
-                                            
+                                            self.leftE4 = name1
+                                            self.rightE4 = name2
+                                            self.e4.e4.left = name1
+                                            self.e4.e4.right = name2
             }
             
             let action2 = UIAlertAction(title: name2,
                                         style: .default) {
                                             [unowned self] action in
                                             self.beginSavingE4(left: name2, right: name1)
+                                            self.leftE4 = name2
+                                            self.rightE4 = name1
+                                            self.e4.e4.left = name2
+                                            self.e4.e4.right = name1
             }
 
             alert.addAction(action1)
@@ -139,10 +150,55 @@ class ViewController: UIViewController {
     }
     
     func exportData() {
-        // TODO: save files first, then export CSV
-        let activityViewController = UIActivityViewController(activityItems: [directory.BHCsvText, directory.E4CsvText, directory.AffdexCsvText] , applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
+        
+        directory.saveBHfile()
+        print("saved Bh")
+        directory.saveE4File()
+        print("saved e4")
+        directory.saveAffdexFile()
+        print("saved affdec")
+        
+        let paths:[URL] = [directory.BHFilePath!,
+                           directory.AffdexFilePath!,
+                           directory.leftE4FilePathACC!,
+                           directory.leftE4FilePathBVP!,
+                           directory.leftE4FilePathGSR!,
+                           directory.leftE4FilePathHR!,
+                           directory.leftE4FilePathTEMP!,
+                           directory.leftE4FilePathTAGS!,
+                           directory.leftE4FilePathIBI!,
+                           directory.rightE4FilePathACC!,
+                           directory.rightE4FilePathBVP!,
+                           directory.rightE4FilePathGSR!,
+                           directory.rightE4FilePathHR!,
+                           directory.rightE4FilePathTEMP!,
+                           directory.rightE4FilePathTAGS!,
+                           directory.rightE4FilePathIBI! ]
+        
+        do {
+            let zipFilePath = try Zip.quickZipFiles(paths, fileName: "\(participantName)_archive") // Zip
+            
+            if MFMailComposeViewController.canSendMail() {
+                print("can send")
+                let emailController = MFMailComposeViewController()
+                emailController.mailComposeDelegate = self
+                emailController.setToRecipients([])
+                emailController.setSubject("AffectHub data export")
+                emailController.setMessageBody("Hi,\n\nThe csv data export is attached in the .zip folder \n\n\nSent from the AffectHub app: github.com/williamcaruso/AffectHub", isHTML: false)
+                
+                
+                if let zipdata = NSData(contentsOf: zipFilePath) {
+                    emailController.addAttachmentData(zipdata as Data, mimeType: "zip", fileName: "\(participantName)_\(Date().description(with: Locale.current)).zip")
+                }
+
+                present(emailController, animated: true, completion: nil)
+            } else {
+                print("cannot send")
+            }
+            
+        } catch {
+            print("Error zipping files")
+        }
     }
 
     
@@ -158,12 +214,9 @@ class ViewController: UIViewController {
                                                 return
                                         }
                                         self.newParticipant(withId: nameToSave)
-                                        self.startButton.isHidden = true
                                         self.titleLabel.isHidden = false
-                                        self.subtitleLabel.isHidden = false
                                         self.titleLabel.text = nameToSave
-                                        let date = Date()
-                                        self.subtitleLabel.text = date.description(with: Locale.current)
+                                        self.subtitleLabel.text = Date().description(with: Locale.current)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
@@ -178,29 +231,22 @@ class ViewController: UIViewController {
 
 extension ViewController: E4ControllerDelegate, E4ConnectDelegate {
     
-    func updateIcon(connected: Bool) {
+    func updateE4Icon(connected: Bool) {
         if connected {
             PKHUD.sharedHUD.contentView = PKHUDSuccessView()
             PKHUD.sharedHUD.hide()
             let names = e4.e4.e4Names
-            let str1 = names.first!
-            let str2 = names.last!
-            let idx1 = str1.index(str1.endIndex, offsetBy: -6)
-            let idx2 = str2.index(str2.endIndex, offsetBy: -6)
-            let name1 = String(str1[idx1...])
-            let name2 = String(str2[idx2...])
             
-            let banner = NotificationBanner(title: "Empatica E4 Connected", subtitle: "\(name1) and \(name2)", style: .success)
-            banner.show()
             self.assignWrists()
             leftE4Indicator.backgroundColor = .green
             rightE4Indicator.backgroundColor = .green
             
         } else {
+            leftE4Indicator.backgroundColor = .red
+            rightE4Indicator.backgroundColor = .red
             let banner = NotificationBanner(title: "Empatica E4 Disonnected", subtitle: "Please reconnect both sensors", style: .danger)
             banner.show()
         }
-
     }
     
     func authSuccess(authenticated: Bool) {
@@ -214,17 +260,46 @@ extension ViewController: E4ControllerDelegate, E4ConnectDelegate {
         }
     }
     
+    func E4timeout() {
+        PKHUD.sharedHUD.hide()
+    }
+    
 }
 
 extension ViewController: BHDelegate {
     
-    func showAlert(alert: UIAlertController) {
-        present(alert, animated: true)
+    func showAlert(message: String) {
+        let banner = NotificationBanner(title: "Error", subtitle:message, style: .danger)
+        banner.show()
     }
     
     func updateStatusCodes(codes: Dictionary<String, Any>) {
-        
+//        print("Update status codes: \(codes)")
     }
     
+    func updateBioIcon(connected: Bool) {
+        if connected {
+            PKHUD.sharedHUD.contentView = PKHUDSuccessView()
+            PKHUD.sharedHUD.hide()
+            bioIndicator.backgroundColor = .green
+            bioConnectionLabel.text = BioHarnessDevice.sensorTagName
+        } else {
+            PKHUD.sharedHUD.hide()
+            bioIndicator.backgroundColor = .red
+        }
+    }
+}
+
+extension ViewController: AffdexControllerDelegate {
+    func startDetectedFace() {
+        affIndicator.backgroundColor = .green
+    }
+    
+    func stopDetectedFace() {
+        affIndicator.backgroundColor = .red
+    }
+}
+
+extension ViewController: MFMailComposeViewControllerDelegate {
     
 }

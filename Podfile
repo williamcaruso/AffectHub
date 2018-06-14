@@ -9,5 +9,6 @@ target 'AffectHub' do
   pod 'AffdexSDK-iOS'
   pod 'NotificationBannerSwift'
   pod 'PKHUD', '~> 5.0'
-
+  pod 'Zip', '~> 1.1'
+  pod 'Charts'
 end

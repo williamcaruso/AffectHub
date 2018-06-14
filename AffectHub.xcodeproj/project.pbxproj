@@ -11,7 +11,6 @@
 		B60F65EC20C824EC00734BA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60F65EB20C824EC00734BA8 /* AppDelegate.swift */; };
 		B60F65EE20C824EC00734BA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60F65ED20C824EC00734BA8 /* ViewController.swift */; };
 		B60F65F120C824EC00734BA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B60F65EF20C824EC00734BA8 /* Main.storyboard */; };
-		B60F65F420C824EC00734BA8 /* AffectHub.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B60F65F220C824EC00734BA8 /* AffectHub.xcdatamodeld */; };
 		B60F65F620C824EE00734BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B60F65F520C824EE00734BA8 /* Assets.xcassets */; };
 		B60F65F920C824EE00734BA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B60F65F720C824EE00734BA8 /* LaunchScreen.storyboard */; };
 		B60F661620C82A9600734BA8 /* E4link.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B60F661520C82A9600734BA8 /* E4link.framework */; };
@@ -23,6 +22,7 @@
 		B6192EDD20C84D670064F2A2 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6192EDC20C84D670064F2A2 /* Accelerate.framework */; };
 		B6192EDF20C84D6C0064F2A2 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6192EDE20C84D6C0064F2A2 /* CoreBluetooth.framework */; };
 		B6192EE120C84D710064F2A2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6192EE020C84D710064F2A2 /* AudioToolbox.framework */; };
+		B69BBF2E20D18DC200A33498 /* AffectHub.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = B69BBF2D20D18DC200A33498 /* AffectHub.xcdatamodel */; };
 		B6BD76DE20D0200B00433C05 /* DirectoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BD76DD20D0200B00433C05 /* DirectoryModel.swift */; };
 		B6BD76E020D0465F00433C05 /* AffdexController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BD76DF20D0465F00433C05 /* AffdexController.swift */; };
 /* End PBXBuildFile section */
@@ -35,7 +35,6 @@
 		B60F65EB20C824EC00734BA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B60F65ED20C824EC00734BA8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B60F65F020C824EC00734BA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B60F65F320C824EC00734BA8 /* AffectHub.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AffectHub.xcdatamodel; sourceTree = "<group>"; };
 		B60F65F520C824EE00734BA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B60F65F820C824EE00734BA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B60F65FA20C824EE00734BA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		B6192EDC20C84D670064F2A2 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B6192EDE20C84D6C0064F2A2 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B6192EE020C84D710064F2A2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		B69BBF2D20D18DC200A33498 /* AffectHub.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = AffectHub.xcdatamodel; path = AffectHub.xcdatamodeld/AffectHub.xcdatamodel; sourceTree = "<group>"; };
 		B6BD76DD20D0200B00433C05 /* DirectoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryModel.swift; sourceTree = "<group>"; };
 		B6BD76DF20D0465F00433C05 /* AffdexController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffdexController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,7 +106,7 @@
 				B60F65F520C824EE00734BA8 /* Assets.xcassets */,
 				B60F65F720C824EE00734BA8 /* LaunchScreen.storyboard */,
 				B60F65FA20C824EE00734BA8 /* Info.plist */,
-				B60F65F220C824EC00734BA8 /* AffectHub.xcdatamodeld */,
+				B69BBF2D20D18DC200A33498 /* AffectHub.xcdatamodel */,
 				B6BD76E120D0466500433C05 /* Affdex */,
 				B6192ED620C83A6E0064F2A2 /* BioHarness */,
 				B6192EDB20C84B750064F2A2 /* E4 */,
@@ -251,20 +251,24 @@
 				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSKinesis/AWSKinesis.framework",
 				"${PODS_ROOT}/AffdexSDK-iOS/ios/Affdex.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSKinesis.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Affdex.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -284,10 +288,10 @@
 				B6BD76DE20D0200B00433C05 /* DirectoryModel.swift in Sources */,
 				B6192ED820C83A960064F2A2 /* E4.swift in Sources */,
 				B618C44220D1630C00AD0327 /* Circle.swift in Sources */,
-				B60F65F420C824EC00734BA8 /* AffectHub.xcdatamodeld in Sources */,
 				B6BD76E020D0465F00433C05 /* AffdexController.swift in Sources */,
 				B6192ED520C83A530064F2A2 /* BioHarnessDevice.swift in Sources */,
 				B60F65EC20C824EC00734BA8 /* AppDelegate.swift in Sources */,
+				B69BBF2E20D18DC200A33498 /* AffectHub.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,7 +450,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = AffectHub/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wcaruso.AffectHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -466,7 +470,7 @@
 				ENABLE_BITCODE = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = AffectHub/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wcaruso.AffectHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -498,19 +502,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		B60F65F220C824EC00734BA8 /* AffectHub.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				B60F65F320C824EC00734BA8 /* AffectHub.xcdatamodel */,
-			);
-			currentVersion = B60F65F320C824EC00734BA8 /* AffectHub.xcdatamodel */;
-			path = AffectHub.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = B60F65E020C824EC00734BA8 /* Project object */;
 }

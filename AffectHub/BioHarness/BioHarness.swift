@@ -42,7 +42,7 @@ class BioHarness: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func logZephyr(_ data:Data) {
-        print(data)
+//        print(data)
         //dataArray for 8 bit values
         let dataLength8 = data.count / MemoryLayout<UInt8>.size
         var dataArray8 = [UInt8](repeating: 0, count: dataLength8)
@@ -65,9 +65,8 @@ class BioHarness: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         dataDictionary["batteryLevel"] = dataArray8[14]
         dataDictionary["timestamp"] = time
         
-        let newLine = "\(String(describing: dataDictionary["heartRate"]!)),\(String(describing: dataDictionary["heartRateConfidence"]!)),\(String(describing: dataDictionary["breathingRate"]!)),\(String(describing: dataDictionary["breathingRateConfidence"]!)),\(String(describing: dataDictionary["heartRateVariability"]!)),\(String(describing: dataDictionary["activityLevel"]!)),\(String(describing: dataDictionary["batteryLevel"]!)),\(String(describing: dataDictionary["timestamp"]!))\n"
+        let newLine = "\(String(describing: dataDictionary["timestamp"]!)),\(String(describing: dataDictionary["heartRate"]!)),\(String(describing: dataDictionary["heartRateConfidence"]!)),\(String(describing: dataDictionary["breathingRate"]!)),\(String(describing: dataDictionary["breathingRateConfidence"]!)),\(String(describing: dataDictionary["heartRateVariability"]!)),\(String(describing: dataDictionary["activityLevel"]!)),\(String(describing: dataDictionary["batteryLevel"]!))\n"
         
-        print(newLine)
         directoryModel.BHCsvText += newLine
     }
     
@@ -142,26 +141,22 @@ class BioHarness: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             showAlert = false
             message = "Bluetooth LE is turned on and ready for communication."
         }
-        print(message)
         
         if showAlert {
-            let alertController = UIAlertController(title: "Central Manager State", message: message, preferredStyle: UIAlertControllerStyle.alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
-            alertController.addAction(okAction)
-            self.delegate?.showAlert(alert: alertController)
+            self.delegate?.showAlert(message: message)
         }
     }
     
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("centralManager didDiscoverPeripheral - CBAdvertisementDataLocalNameKey is \"\(CBAdvertisementDataLocalNameKey)\"")
+//        print("centralManager didDiscoverPeripheral - CBAdvertisementDataLocalNameKey is \"\(CBAdvertisementDataLocalNameKey)\"")
         
         if let peripheralName = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
-            print("NEXT PERIPHERAL NAME: \(peripheralName)")
-            print("NEXT PERIPHERAL UUID: \(peripheral.identifier.uuidString)")
+//            print("NEXT PERIPHERAL NAME: \(peripheralName)")
+//            print("NEXT PERIPHERAL UUID: \(peripheral.identifier.uuidString)")
             
             if peripheralName == BioHarnessDevice.sensorTagName {
-                print("SENSOR TAG FOUND! ADDING NOW!!!")
+//                print("SENSOR TAG FOUND! ADDING NOW!!!")
                 
                 zephyr = peripheral
                 zephyr!.delegate = self
@@ -176,9 +171,7 @@ class BioHarness: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         zephyrConnected = true
         peripheral.discoverServices(nil)
         central.stopScan()
-        print(peripheral)
-        print(peripheral.name)
-        print(peripheral.services)
+        self.delegate?.updateBioIcon(connected: true)
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -193,7 +186,7 @@ class BioHarness: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             print("****** DISCONNECTION DETAILS: \(error!.localizedDescription)")
         }
         zephyr = nil
-        self.delegate?.updateIcon(connected: false);
+        self.delegate?.updateBioIcon(connected: false)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -206,7 +199,6 @@ class BioHarness: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             for service in services {
                 if (service.uuid == CBUUID(string: BioHarnessDevice.ZUUID)) {
                     peripheral.discoverCharacteristics(nil, for: service)
-                    print("connected to service \(service)")
                 }
             }
         }
@@ -218,26 +210,19 @@ class BioHarness: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             return
         }
         if let characteristics = service.characteristics {
-            print("CHARACTERS")
-            print(service.characteristics)
             for characteristic in characteristics {
                 zephyrCharacteristic = characteristic
                 zephyr?.setNotifyValue(true, for: characteristic)
-                self.delegate?.updateIcon(connected: false)
             }
         }
     }
     
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverIncludedServicesFor service: CBService, error: Error?) {
-        print("Discovered included service for \(service)")
-    }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if error != nil {
             print("ERROR ON UPDATING VALUE FOR CHARACTERISTIC: \(characteristic) - \(String(describing: error?.localizedDescription))")
             return
         }
-        print("updated value: \(characteristic.value)")
         if let dataBytes = characteristic.value {
             logZephyr(dataBytes)
         }
@@ -245,7 +230,7 @@ class BioHarness: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 }
 
 protocol BHDelegate {
-    func showAlert(alert:UIAlertController)
+    func showAlert(message:String)
     func updateStatusCodes(codes: Dictionary<String, Any>)
-    func updateIcon(connected: Bool)
+    func updateBioIcon(connected: Bool)
 }

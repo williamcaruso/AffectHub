@@ -13,7 +13,8 @@ class AffdexController: NSObject, AFDXDetectorDelegate {
 
     static let sharedInstance = AffdexController()
     let directoryModel = DirectoryModel.sharedInstance
-    var detector : AFDXDetector? = nil
+    var detector:AFDXDetector? = nil
+    var delegate:AffdexControllerDelegate?
     
     override init() {
         super.init()
@@ -26,19 +27,19 @@ class AffdexController: NSObject, AFDXDetectorDelegate {
     
     func start() {
         detector!.start()
+        print("started")
     }
     
     func stop() {
         detector!.stop()
     }
     
-    func detectorDidStartDetectingFace(face : AFDXFace) {
-        // handle new face
-    }
-    
-    func detectorDidStopDetectingFace(face : AFDXFace) {
-        // handle loss of existing face
-    }
+//    func detectorDidStartDetectingFace(face : AFDXFace) {
+//    }
+//
+//    func detectorDidStopDetectingFace(face : AFDXFace) {
+//        delegate?.stopDetectedFace()
+//    }
     
     func detector(_ detector : AFDXDetector, hasResults : NSMutableDictionary?, for forImage : UIImage, atTime : TimeInterval) {
 //        self.cameraView.image = flipImageLeftRight(forImage)
@@ -48,14 +49,21 @@ class AffdexController: NSObject, AFDXDetectorDelegate {
             // handle processed image in this block of code
             
             // enumrate the dictionary of faces
+            if (hasResults?.count)! > 0 {
+                delegate?.startDetectedFace()
+            } else {
+                delegate?.stopDetectedFace()
+            }
+            
             for (_, face) in hasResults! {
+
                 // for each face, get the rage score and print it
 //                let emoji:AFDXEmoji = (face as AnyObject).emojis
 //                let theEmoji = mapEmoji(emoji.dominantEmoji)
                 let emotions:AFDXEmotions = (face as AnyObject).emotions
                 
                 let time = Date().timeIntervalSince1970
-                directoryModel.AffdexCsvText += "\(time),valence,\(emotions.valence)\n"
+                directoryModel.AffdexCsvText += "\(time),\(emotions.valence)\n"
             }
         } else {
             // handle unprocessed image in this block of code
@@ -114,4 +122,10 @@ class AffdexController: NSObject, AFDXDetectorDelegate {
         }
     }
     
+}
+
+
+protocol AffdexControllerDelegate {
+    func startDetectedFace()
+    func stopDetectedFace()
 }

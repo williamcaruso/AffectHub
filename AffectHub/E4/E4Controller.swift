@@ -47,10 +47,12 @@ class E4Controller: NSObject, E4Delegate {
     func didUpdateE4Status(status: String) {
         if status == "Connected" {
             self.E4Connected = true
-            self.delegate?.updateIcon(connected: true)
+            self.delegate?.updateE4Icon(connected: true)
         } else if status == "Disconnected" {
             self.E4Connected = false
-            self.delegate?.updateIcon(connected: false)
+            self.delegate?.updateE4Icon(connected: false)
+        } else if status == "Timeout" {
+            self.delegate?.E4timeout()
         }
         
         print("E4 status: \(status)")
@@ -58,7 +60,8 @@ class E4Controller: NSObject, E4Delegate {
 }
 
 protocol E4ControllerDelegate {
-    func updateIcon(connected: Bool)
+    func updateE4Icon(connected: Bool)
+    func E4timeout()
 }
 
 protocol E4ConnectDelegate {

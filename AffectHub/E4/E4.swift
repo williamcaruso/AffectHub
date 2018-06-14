@@ -23,26 +23,25 @@ class E4:NSObject, EmpaticaDelegate, EmpaticaDeviceDelegate {
     weak var delegate: E4Delegate?
     var e4Names:[String] = []
     
+    var left = ""
+    var right = ""
+    
     func didUpdate(_ status: DeviceStatus, forDevice device: EmpaticaDeviceManager!) {
         switch (status) {
         case kDeviceStatusDisconnected:
             e4status = "Disconnected"
-            print(e4status)
             break;
         case kDeviceStatusConnecting:
             e4status = "Connecting"
-            print(e4status)
             break;
         case kDeviceStatusConnected:
             e4status = "Connected"
-            print(e4status)
-            if !e4Names.contains(device.name) {
-                e4Names.append(device.name)
+            if !e4Names.contains(device.serialNumber) {
+                e4Names.append(device.serialNumber)
             }
             break;
         case kDeviceStatusDisconnecting:
             e4status = "Disconnecting"
-            print(e4status)
             break;
         default:
             break;
@@ -52,36 +51,63 @@ class E4:NSObject, EmpaticaDelegate, EmpaticaDeviceDelegate {
     }
     
     func didReceiveTag(atTimestamp timestamp: Double, fromDevice device: EmpaticaDeviceManager!) {
-        directoryModel.E4CsvText += "\(String(describing: timestamp)),tag,0\n"
+        if device.serialNumber == left {
+            directoryModel.leftE4CsvTextTAGS += "\(Date().timeIntervalSince1970),0\n"
+        } else if device.serialNumber == right {
+            directoryModel.rightE4CsvTextTAGS += "\(Date().timeIntervalSince1970),0\n"
+        }
     }
     
     func didReceiveGSR(_ gsr: Float, withTimestamp timestamp: Double, fromDevice device: EmpaticaDeviceManager!) {
-        directoryModel.E4CsvText += "\(String(describing: timestamp)),gsr,\(String(describing: gsr))\n"
+        if device.serialNumber == left {
+            directoryModel.leftE4CsvTextGSR += "\(Date().timeIntervalSince1970),\(String(describing: gsr))\n"
+        } else if device.serialNumber == right {
+            directoryModel.rightE4CsvTextGSR += "\(Date().timeIntervalSince1970),\(String(describing: gsr))\n"
+        }
     }
     
     func didReceiveBVP(_ bvp: Float, withTimestamp timestamp: Double, fromDevice device: EmpaticaDeviceManager!) {
-        directoryModel.E4CsvText += "\(String(describing: timestamp)),bvp,\(String(describing: bvp))\n"
+        if device.serialNumber == left {
+            directoryModel.leftE4CsvTextBVP += "\(Date().timeIntervalSince1970),\(String(describing: bvp))\n"
+        } else if device.serialNumber == right {
+            directoryModel.rightE4CsvTextBVP += "\(Date().timeIntervalSince1970),\(String(describing: bvp))\n"
+        }
     }
     
     func didReceiveTemperature(_ temp: Float, withTimestamp timestamp: Double, fromDevice device: EmpaticaDeviceManager!) {
-        directoryModel.E4CsvText += "\(String(describing: timestamp)),temperature,\(String(describing: temp))\n"
-        
+        if device.serialNumber == left {
+            directoryModel.leftE4CsvTextTEMP += "\(Date().timeIntervalSince1970),\(String(describing: temp))\n"
+        } else if device.serialNumber == right {
+            directoryModel.rightE4CsvTextTEMP += "\(Date().timeIntervalSince1970),\(String(describing: temp))\n"
+        }
     }
     
     func didReceiveAccelerationX(_ x: Int8, y: Int8, z: Int8, withTimestamp timestamp: Double, fromDevice device: EmpaticaDeviceManager!) {
-        directoryModel.E4CsvText += "\(String(describing: timestamp)),x,\(String(describing: x))\n\(String(describing: timestamp)),y,\(String(describing: y))\n\(String(describing: timestamp)),z,\(String(describing: z))\n"
+        if device.serialNumber == left {
+            directoryModel.leftE4CsvTextACC += "\(Date().timeIntervalSince1970),\(String(describing: x)),\(String(describing: y)),\(String(describing: z))\n"
+        } else if device.serialNumber == right {
+            directoryModel.rightE4CsvTextACC += "\(Date().timeIntervalSince1970),\(String(describing: x)),\(String(describing: y)),\(String(describing: z))\n"
+        }
     }
     
     func didReceiveIBI(_ ibi: Float, withTimestamp timestamp: Double, fromDevice device: EmpaticaDeviceManager!) {
-        directoryModel.E4CsvText += "\(String(describing: timestamp)),ibi,\(String(describing: ibi))\n"
+        if device.serialNumber == left {
+            directoryModel.leftE4CsvTextIBI += "\(Date().timeIntervalSince1970),\(String(describing: ibi))\n"
+        } else if device.serialNumber == right {
+            directoryModel.rightE4CsvTextIBI += "\(Date().timeIntervalSince1970),\(String(describing: ibi))\n"
+        }
     }
     
     func didReceiveHR(_ hr: Float, withTimestamp timestamp: Double, fromDevice device: EmpaticaDeviceManager!) {
-        directoryModel.E4CsvText += "\(String(describing: timestamp)),hr,\(String(describing: hr))\n"
+        if device.serialNumber == left {
+            directoryModel.leftE4CsvTextHR += "\(Date().timeIntervalSince1970),\(String(describing: hr))\n"
+        } else if device.serialNumber == right {
+            directoryModel.rightE4CsvTextHR += "\(Date().timeIntervalSince1970),\(String(describing: hr))\n"
+        }
     }
     
     func didReceiveBatteryLevel(_ level: Float, withTimestamp timestamp: Double, fromDevice device: EmpaticaDeviceManager!) {
-        directoryModel.E4CsvText += "\(String(describing: timestamp)),battery,\(String(describing: level))\n"
+        // TODO: update UI
     }
     
     func didDiscoverDevices(_ devices: [Any]!) {
@@ -89,7 +115,7 @@ class E4:NSObject, EmpaticaDelegate, EmpaticaDeviceDelegate {
             // consomnect to multiple devices
             if let devices = devices as? [EmpaticaDeviceManager] {
                 for device in devices {
-                    print(device.name)
+                    print(device.serialNumber)
                     if !device.isFaulty && device.allowed {
                         device.connect(with: self)
                     }
@@ -97,6 +123,7 @@ class E4:NSObject, EmpaticaDelegate, EmpaticaDeviceDelegate {
             }
         } else {
             print("No device found in range")
+            delegate?.didUpdateE4Status(status: "Timeout")
         }
     }
     
