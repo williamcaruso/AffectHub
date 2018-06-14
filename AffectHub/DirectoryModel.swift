@@ -25,7 +25,7 @@ class DirectoryModel {
     var BHCsvText: String = "heartRate,heartRateConfidence,breathingRate,breathingRateConfidence,heartRateVariability,activityLevel,batteryLevel,timestamp\n"
     
     var AffdexFilePath: URL?
-    var AffdexCsvText: String = "timestamp,valence\n"
+    var AffdexJSON: String = "{"
     
     var leftE4FilePathGSR: URL?
     var leftE4FilePathACC: URL?
@@ -142,26 +142,23 @@ class DirectoryModel {
     }
     
     func saveAffdexFile() {
+        AffdexJSON += "}"
         let filePath = subjectId + "_Affectiva"
         var version = 0
         repeat {
             version += 1
-            self.AffdexFilePath = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
+            self.AffdexFilePath = URL.init(fileURLWithPath: filePath + String(version) + ".json", relativeTo: subjectDirectoryURL)
         } while FileManager.default.fileExists(atPath: self.AffdexFilePath!.path)
         do {
-            try AffdexCsvText.write(to: AffdexFilePath!, atomically: true, encoding: String.Encoding.utf8)
+            try AffdexJSON.write(to: AffdexFilePath!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
-            print("Failed to create Affdex csv file")
+            print("Failed to create Affdex JSON file")
             print("\(error)")
         }
-        self.AffdexCsvText = "timestamp,type,value\n"
     }
     
     func resetCsvText() {
         self.BHCsvText = "timestamp,heartRateConfidence,breathingRate,breathingRateConfidence,heartRateVariability,activityLevel,batteryLevel\n"
-//        self.E4CsvText = "timestamp,type,value\n"
-        self.AffdexCsvText = "timestamp,type,value\n"
-
     }
     
     func resetModel() {

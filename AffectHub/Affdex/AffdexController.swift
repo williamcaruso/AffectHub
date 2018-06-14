@@ -57,13 +57,27 @@ class AffdexController: NSObject, AFDXDetectorDelegate {
             
             for (_, face) in hasResults! {
 
-                // for each face, get the rage score and print it
-//                let emoji:AFDXEmoji = (face as AnyObject).emojis
 //                let theEmoji = mapEmoji(emoji.dominantEmoji)
-                let emotions:AFDXEmotions = (face as AnyObject).emotions
                 
-                let time = Date().timeIntervalSince1970
-                directoryModel.AffdexCsvText += "\(time),\(emotions.valence)\n"
+//                let orientation:AFDXOrientation = (face as AnyObject).orientation
+//                let emotions:AFDXEmotions = (face as AnyObject).emotions
+//                let expressions:AFDXExpressions = (face as AnyObject).expressions
+//                let emojis:AFDXEmoji = (face as AnyObject).emojis
+//                let faceBounds:CGRect = (face as AnyObject).faceBounds
+//                let facePoints = (face as AnyObject).facePoints
+
+//                print((face as AnyObject).jsonDescription())
+
+                if let des = (face as AnyObject).jsonDescription() {
+                    
+                    directoryModel.AffdexJSON += "\"\(Date().timeIntervalSince1970)\": {\(des)},\n"
+                }
+//                    ["orientation": nil,
+//                     "faceQuality": nil,
+//                     "emotions": nil,
+//                     "expressions": nil,
+//                     "faceBounds": nil,
+//                     "facePoints": nil ]
             }
         } else {
             // handle unprocessed image in this block of code

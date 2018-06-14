@@ -13,7 +13,7 @@ import PKHUD
 import MessageUI
 import Zip
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     var participantName:String = "unknown"
     
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
     
     @IBAction func startNewSession(_ sender: Any) {
         
-        if participantName == nil {
+        if participantName == "unknown" {
             startButton.setTitle("Stop", for: .normal)
             newParticipant()
         } else {
@@ -201,6 +201,9 @@ class ViewController: UIViewController {
         }
     }
 
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
     
     func newParticipant() {
         let alert = UIAlertController(title: "New Participant",
@@ -298,8 +301,4 @@ extension ViewController: AffdexControllerDelegate {
     func stopDetectedFace() {
         affIndicator.backgroundColor = .red
     }
-}
-
-extension ViewController: MFMailComposeViewControllerDelegate {
-    
 }
