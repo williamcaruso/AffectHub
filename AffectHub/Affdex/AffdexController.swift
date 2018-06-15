@@ -8,6 +8,7 @@
 
 import UIKit
 import Affdex
+import Foundation
 
 class AffdexController: NSObject, AFDXDetectorDelegate {
 
@@ -34,12 +35,6 @@ class AffdexController: NSObject, AFDXDetectorDelegate {
         detector!.stop()
     }
     
-//    func detectorDidStartDetectingFace(face : AFDXFace) {
-//    }
-//
-//    func detectorDidStopDetectingFace(face : AFDXFace) {
-//        delegate?.stopDetectedFace()
-//    }
     
     func detector(_ detector : AFDXDetector, hasResults : NSMutableDictionary?, for forImage : UIImage, atTime : TimeInterval) {
 //        self.cameraView.image = flipImageLeftRight(forImage)
@@ -69,15 +64,34 @@ class AffdexController: NSObject, AFDXDetectorDelegate {
 //                print((face as AnyObject).jsonDescription())
 
                 if let des = (face as AnyObject).jsonDescription() {
-                    
                     directoryModel.AffdexJSON += "\"\(Date().timeIntervalSince1970)\": {\(des)},\n"
                 }
-//                    ["orientation": nil,
-//                     "faceQuality": nil,
-//                     "emotions": nil,
-//                     "expressions": nil,
-//                     "faceBounds": nil,
-//                     "facePoints": nil ]
+                
+                var newLine = "\(Date().timeIntervalSince1970),"
+                if let faceBounds:CGRect = (face as AnyObject).faceBounds {
+                    newLine += "\(faceBounds.minX),\(faceBounds.minY),\(faceBounds.height),\(faceBounds.width),"
+
+                } else {
+                    newLine += "0,0,0,0,"
+
+                }
+                if let facePoints = (face as AnyObject).facePoints {
+                    var xs = ""
+                    var ys = ""
+                    for point in facePoints! {
+                        let pt:CGPoint = point as! CGPoint
+                        xs += "\(pt.x),"
+                        ys += "\(pt.y),"
+                    }
+                    newLine += xs
+                    newLine += ys
+                    newLine += "\n"
+                } else {
+                    newLine += "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,\n"
+                }
+                
+                directoryModel.AffdexCsvText += newLine
+                print(newLine)
             }
         } else {
             // handle unprocessed image in this block of code

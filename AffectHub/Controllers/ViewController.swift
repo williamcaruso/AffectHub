@@ -161,22 +161,24 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         directory.saveAffdexFile()
         print("saved affdex")
         
-        let paths:[URL] = [directory.BHFilePath!,
-                           directory.AffdexFilePath!,
-                           directory.leftE4FilePathACC!,
-                           directory.leftE4FilePathBVP!,
-                           directory.leftE4FilePathGSR!,
-                           directory.leftE4FilePathHR!,
-                           directory.leftE4FilePathTEMP!,
-                           directory.leftE4FilePathTAGS!,
-                           directory.leftE4FilePathIBI!,
-                           directory.rightE4FilePathACC!,
-                           directory.rightE4FilePathBVP!,
-                           directory.rightE4FilePathGSR!,
-                           directory.rightE4FilePathHR!,
-                           directory.rightE4FilePathTEMP!,
-                           directory.rightE4FilePathTAGS!,
-                           directory.rightE4FilePathIBI! ]
+//        let paths:[URL] = [directory.BHFilePath!,
+//                           directory.AffdexFilePath!,
+//                           directory.leftE4FilePathACC!,
+//                           directory.leftE4FilePathBVP!,
+//                           directory.leftE4FilePathGSR!,
+//                           directory.leftE4FilePathHR!,
+//                           directory.leftE4FilePathTEMP!,
+//                           directory.leftE4FilePathTAGS!,
+//                           directory.leftE4FilePathIBI!,
+//                           directory.rightE4FilePathACC!,
+//                           directory.rightE4FilePathBVP!,
+//                           directory.rightE4FilePathGSR!,
+//                           directory.rightE4FilePathHR!,
+//                           directory.rightE4FilePathTEMP!,
+//                           directory.rightE4FilePathTAGS!,
+//                           directory.rightE4FilePathIBI! ]
+        
+        let paths:[URL] = [directory.subjectDirectoryURL! ]
         
         do {
             let zipFilePath = try Zip.quickZipFiles(paths, fileName: "\(participantName)_archive") // Zip

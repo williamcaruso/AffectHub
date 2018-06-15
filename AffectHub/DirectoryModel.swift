@@ -26,6 +26,8 @@ class DirectoryModel {
     
     var AffdexFilePath: URL?
     var AffdexJSON: String = "{"
+    var AffdexCsvFilePath: URL?
+    var AffdexCsvText: String = "timestamp,x,y,height,width,p1x,p2x,p3x,p4x,p4x,p6x,p7x,p8x,p9x,p10x,p11x,p12x,p13x,p14x,p15x,p16x,p17x,p18x,p19x,p20x,p21x,p22x,p23x,p24x,p25x,p26x,p27x,p28x,p29x,p30x,p31x,p32x,p33x,p34x,p1y,p2y,p3y,p4y,p4y,p6y,p7y,p8y,p9y,p10y,p11y,p12y,p13y,p14y,p15y,p16y,p17y,p18y,p19y,p20y,p21y,p22y,p23y,p24y,p25y,p26y,p27y,p28y,p29y,p30y,p31y,p32y,p33y,p34y\n"
     
     var leftE4FilePathGSR: URL?
     var leftE4FilePathACC: URL?
@@ -147,6 +149,16 @@ class DirectoryModel {
             print("Failed to create Affdex JSON file")
             print("\(error)")
         }
+        
+        let filePathCSV = subjectId + "_AffectivaFacePoints"
+        self.AffdexCsvFilePath = URL.init(fileURLWithPath: filePathCSV + ".csv", relativeTo: subjectDirectoryURL)
+        do {
+            try AffdexCsvText.write(to: AffdexCsvFilePath!, atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            print("Failed to create Affdex Face Point CSV file")
+            print("\(error)")
+        }
+
     }
     
     func resetCsvText() {
