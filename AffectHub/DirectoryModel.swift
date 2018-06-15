@@ -109,11 +109,7 @@ class DirectoryModel {
     
     func saveBHfile() {
         let filePath = subjectId + "_BH"
-        var version = 0
-        repeat {
-            version += 1
-            self.BHFilePath = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.BHFilePath!.path)
+        self.BHFilePath = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try BHCsvText.write(to: BHFilePath!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -144,11 +140,7 @@ class DirectoryModel {
     func saveAffdexFile() {
         AffdexJSON += "}"
         let filePath = subjectId + "_Affectiva"
-        var version = 0
-        repeat {
-            version += 1
-            self.AffdexFilePath = URL.init(fileURLWithPath: filePath + String(version) + ".json", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.AffdexFilePath!.path)
+        self.AffdexFilePath = URL.init(fileURLWithPath: filePath + ".json", relativeTo: subjectDirectoryURL)
         do {
             try AffdexJSON.write(to: AffdexFilePath!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -171,11 +163,7 @@ class DirectoryModel {
     // Saving E4 Files
     func saveE4GSRleft() {
         let filePath = subjectId + "_E4_left_GSR"
-        var version = 0
-        repeat {
-            version += 1
-            self.leftE4FilePathGSR = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.leftE4FilePathGSR!.path)
+        self.leftE4FilePathGSR = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try leftE4CsvTextGSR.write(to: leftE4FilePathGSR!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -186,11 +174,7 @@ class DirectoryModel {
     
     func saveE4ACCleft() {
         let filePath = subjectId + "_E4_left_ACC"
-        var version = 0
-        repeat {
-            version += 1
-            self.leftE4FilePathACC = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.leftE4FilePathACC!.path)
+        self.leftE4FilePathACC = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try leftE4CsvTextACC.write(to: leftE4FilePathACC!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -201,11 +185,7 @@ class DirectoryModel {
     
     func saveE4BVPleft() {
         let filePath = subjectId + "_E4_left_BVP"
-        var version = 0
-        repeat {
-            version += 1
-            self.leftE4FilePathBVP = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.leftE4FilePathBVP!.path)
+        self.leftE4FilePathBVP = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try leftE4CsvTextBVP.write(to: leftE4FilePathBVP!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -217,11 +197,8 @@ class DirectoryModel {
     
     func saveE4IBIleft() {
         let filePath = subjectId + "_E4_left_IBI"
-        var version = 0
-        repeat {
-            version += 1
-            self.leftE4FilePathIBI = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.leftE4FilePathIBI!.path)
+
+        self.leftE4FilePathIBI = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try leftE4CsvTextIBI.write(to: leftE4FilePathIBI!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -233,11 +210,8 @@ class DirectoryModel {
     
     func saveE4HRleft() {
         let filePath = subjectId + "_E4_left_HR"
-        var version = 0
-        repeat {
-            version += 1
-            self.leftE4FilePathHR = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.leftE4FilePathHR!.path)
+
+        self.leftE4FilePathHR = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try leftE4CsvTextHR.write(to: leftE4FilePathHR!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -249,11 +223,7 @@ class DirectoryModel {
     
     func saveE4TEMPleft() {
         let filePath = subjectId + "_E4_left_TEMP"
-        var version = 0
-        repeat {
-            version += 1
-            self.leftE4FilePathTEMP = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.leftE4FilePathTEMP!.path)
+        self.leftE4FilePathTEMP = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try leftE4CsvTextTEMP.write(to: leftE4FilePathTEMP!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -265,11 +235,7 @@ class DirectoryModel {
     
     func saveE4TAGSleft() {
         let filePath = subjectId + "_E4_left_TAGS"
-        var version = 0
-        repeat {
-            version += 1
-            self.leftE4FilePathTAGS = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.leftE4FilePathTAGS!.path)
+        self.leftE4FilePathTAGS = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try leftE4CsvTextTAGS.write(to: leftE4FilePathTAGS!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -280,11 +246,7 @@ class DirectoryModel {
     
     func saveE4GSRright() {
         let filePath = subjectId + "_E4_right_GSR"
-        var version = 0
-        repeat {
-            version += 1
-            self.rightE4FilePathGSR = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.rightE4FilePathGSR!.path)
+        self.rightE4FilePathGSR = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try rightE4CsvTextGSR.write(to: rightE4FilePathGSR!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -295,11 +257,7 @@ class DirectoryModel {
     
     func saveE4ACCright() {
         let filePath = subjectId + "_E4_right_ACC"
-        var version = 0
-        repeat {
-            version += 1
-            self.rightE4FilePathACC = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.rightE4FilePathACC!.path)
+        self.rightE4FilePathACC = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try rightE4CsvTextACC.write(to: rightE4FilePathACC!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -310,11 +268,7 @@ class DirectoryModel {
     
     func saveE4BVPright() {
         let filePath = subjectId + "_E4_right_BVP"
-        var version = 0
-        repeat {
-            version += 1
-            self.rightE4FilePathBVP = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.rightE4FilePathBVP!.path)
+        self.rightE4FilePathBVP = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try rightE4CsvTextBVP.write(to: rightE4FilePathBVP!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -326,11 +280,7 @@ class DirectoryModel {
     
     func saveE4IBIright() {
         let filePath = subjectId + "_E4_right_IBI"
-        var version = 0
-        repeat {
-            version += 1
-            self.rightE4FilePathIBI = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.rightE4FilePathIBI!.path)
+        self.rightE4FilePathIBI = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try rightE4CsvTextIBI.write(to: rightE4FilePathIBI!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -342,11 +292,7 @@ class DirectoryModel {
     
     func saveE4HRright() {
         let filePath = subjectId + "_E4_right_HR"
-        var version = 0
-        repeat {
-            version += 1
-            self.rightE4FilePathHR = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.rightE4FilePathHR!.path)
+        self.rightE4FilePathHR = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try rightE4CsvTextHR.write(to: rightE4FilePathHR!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -358,11 +304,7 @@ class DirectoryModel {
     
     func saveE4TEMPright() {
         let filePath = subjectId + "_E4_right_TEMP"
-        var version = 0
-        repeat {
-            version += 1
-            self.rightE4FilePathTEMP = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.rightE4FilePathTEMP!.path)
+        self.rightE4FilePathTEMP = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try rightE4CsvTextTEMP.write(to: rightE4FilePathTEMP!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -374,11 +316,7 @@ class DirectoryModel {
     
     func saveE4TAGSright() {
         let filePath = subjectId + "_E4_right_TAGS"
-        var version = 0
-        repeat {
-            version += 1
-            self.rightE4FilePathTAGS = URL.init(fileURLWithPath: filePath + String(version) + ".csv", relativeTo: subjectDirectoryURL)
-        } while FileManager.default.fileExists(atPath: self.rightE4FilePathTAGS!.path)
+        self.rightE4FilePathTAGS = URL.init(fileURLWithPath: filePath + ".csv", relativeTo: subjectDirectoryURL)
         do {
             try rightE4CsvTextTAGS.write(to: rightE4FilePathTAGS!, atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -386,5 +324,20 @@ class DirectoryModel {
             print("\(error)")
         }
     }
+    
+    func getAllDocuments() -> [URL] {
+        let fileManager = FileManager.default
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: self.rootDirectoryURL, includingPropertiesForKeys: nil)
+            
+            // process files
+            return fileURLs
+            print("File URLS: \(fileURLs)")
+        } catch {
+            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
+        }
+        return []
+    }
+    
 }
 

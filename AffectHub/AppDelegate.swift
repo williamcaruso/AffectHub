@@ -17,15 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        
-        // Empatica Authentication
-//        EmpaticaAPI.authenticate(withAPIKey: "ea88e39a5d9d475ca269141c80707c65") { (flag, msg) in
-//            print("\(flag) and \(String(describing: msg))")
-//        }
-        
-//        EmpaticaAPI.authenticate(withAPIKey: "ea88e39a5d9d475ca269141c80707c65", andCompletionHandler: { _,_  in pr})
-        
+
         return true
     }
 

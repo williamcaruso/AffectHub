@@ -6,6 +6,7 @@
 //  Copyright © 2018 wcaruso. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import CoreData
 import NotificationBannerSwift
@@ -25,6 +26,8 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     var leftE4:String!
     var rightE4:String!
+    
+    var saveTimer : Timer!
     
     // MARK: - Outlets
     @IBOutlet var leftE4Indicator: Circle!
@@ -156,7 +159,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         directory.saveE4File()
         print("saved e4")
         directory.saveAffdexFile()
-        print("saved affdec")
+        print("saved affdex")
         
         let paths:[URL] = [directory.BHFilePath!,
                            directory.AffdexFilePath!,
@@ -220,6 +223,9 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
                                         self.titleLabel.isHidden = false
                                         self.titleLabel.text = nameToSave
                                         self.subtitleLabel.text = Date().description(with: Locale.current)
+                                        
+                                        self.saveTimer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(self.saveAll), userInfo: nil, repeats: true)
+
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
@@ -290,6 +296,15 @@ extension ViewController: BHDelegate {
             PKHUD.sharedHUD.hide()
             bioIndicator.backgroundColor = .red
         }
+    }
+    
+    @objc func saveAll() {
+        directory.saveBHfile()
+        print("saved Bh")
+        directory.saveE4File()
+        print("saved e4")
+        directory.saveAffdexFile()
+        print("saved affdec")
     }
 }
 

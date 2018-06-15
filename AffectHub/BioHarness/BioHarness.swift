@@ -155,8 +155,10 @@ class BioHarness: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 //            print("NEXT PERIPHERAL NAME: \(peripheralName)")
 //            print("NEXT PERIPHERAL UUID: \(peripheral.identifier.uuidString)")
             
-            if peripheralName == BioHarnessDevice.sensorTagName {
-//                print("SENSOR TAG FOUND! ADDING NOW!!!")
+            let first2 = peripheralName.substring(to:peripheralName.index(peripheralName.startIndex, offsetBy: 2))
+
+            if first2 == "BH" {
+                print("SENSOR TAG FOUND! ADDING NOW!!! \(first2)")
                 
                 zephyr = peripheral
                 zephyr!.delegate = self

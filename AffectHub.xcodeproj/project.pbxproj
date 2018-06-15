@@ -22,7 +22,8 @@
 		B6192EDD20C84D670064F2A2 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6192EDC20C84D670064F2A2 /* Accelerate.framework */; };
 		B6192EDF20C84D6C0064F2A2 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6192EDE20C84D6C0064F2A2 /* CoreBluetooth.framework */; };
 		B6192EE120C84D710064F2A2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6192EE020C84D710064F2A2 /* AudioToolbox.framework */; };
-		B69BBF2E20D18DC200A33498 /* AffectHub.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = B69BBF2D20D18DC200A33498 /* AffectHub.xcdatamodel */; };
+		B62ABADD20D41FED0036FD51 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ABADC20D41FED0036FD51 /* TableViewController.swift */; };
+		B652DB1D20D422F1005F8254 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B652DB1C20D422F1005F8254 /* TableViewCell.swift */; };
 		B6BD76DE20D0200B00433C05 /* DirectoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BD76DD20D0200B00433C05 /* DirectoryModel.swift */; };
 		B6BD76E020D0465F00433C05 /* AffdexController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BD76DF20D0465F00433C05 /* AffdexController.swift */; };
 /* End PBXBuildFile section */
@@ -48,7 +49,8 @@
 		B6192EDC20C84D670064F2A2 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B6192EDE20C84D6C0064F2A2 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B6192EE020C84D710064F2A2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		B69BBF2D20D18DC200A33498 /* AffectHub.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = AffectHub.xcdatamodel; path = AffectHub.xcdatamodeld/AffectHub.xcdatamodel; sourceTree = "<group>"; };
+		B62ABADC20D41FED0036FD51 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		B652DB1C20D422F1005F8254 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		B6BD76DD20D0200B00433C05 /* DirectoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryModel.swift; sourceTree = "<group>"; };
 		B6BD76DF20D0465F00433C05 /* AffdexController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffdexController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,17 +103,15 @@
 			children = (
 				B6192ED120C82D250064F2A2 /* AffectHub-Bridging-Header.h */,
 				B60F65EB20C824EC00734BA8 /* AppDelegate.swift */,
-				B60F65ED20C824EC00734BA8 /* ViewController.swift */,
+				B6F4D59320D433E100A25004 /* Controllers */,
 				B60F65EF20C824EC00734BA8 /* Main.storyboard */,
 				B60F65F520C824EE00734BA8 /* Assets.xcassets */,
 				B60F65F720C824EE00734BA8 /* LaunchScreen.storyboard */,
 				B60F65FA20C824EE00734BA8 /* Info.plist */,
-				B69BBF2D20D18DC200A33498 /* AffectHub.xcdatamodel */,
 				B6BD76E120D0466500433C05 /* Affdex */,
 				B6192ED620C83A6E0064F2A2 /* BioHarness */,
 				B6192EDB20C84B750064F2A2 /* E4 */,
 				B6BD76DD20D0200B00433C05 /* DirectoryModel.swift */,
-				B618C44120D1630C00AD0327 /* Circle.swift */,
 			);
 			path = AffectHub;
 			sourceTree = "<group>";
@@ -152,6 +152,17 @@
 				B6BD76DF20D0465F00433C05 /* AffdexController.swift */,
 			);
 			path = Affdex;
+			sourceTree = "<group>";
+		};
+		B6F4D59320D433E100A25004 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B618C44120D1630C00AD0327 /* Circle.swift */,
+				B60F65ED20C824EC00734BA8 /* ViewController.swift */,
+				B62ABADC20D41FED0036FD51 /* TableViewController.swift */,
+				B652DB1C20D422F1005F8254 /* TableViewCell.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,10 +299,11 @@
 				B6BD76DE20D0200B00433C05 /* DirectoryModel.swift in Sources */,
 				B6192ED820C83A960064F2A2 /* E4.swift in Sources */,
 				B618C44220D1630C00AD0327 /* Circle.swift in Sources */,
+				B62ABADD20D41FED0036FD51 /* TableViewController.swift in Sources */,
 				B6BD76E020D0465F00433C05 /* AffdexController.swift in Sources */,
 				B6192ED520C83A530064F2A2 /* BioHarnessDevice.swift in Sources */,
+				B652DB1D20D422F1005F8254 /* TableViewCell.swift in Sources */,
 				B60F65EC20C824EC00734BA8 /* AppDelegate.swift in Sources */,
-				B69BBF2E20D18DC200A33498 /* AffectHub.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +463,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = AffectHub/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wcaruso.AffectHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "AffectHub/AffectHub-Bridging-Header.h";
@@ -471,7 +486,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = AffectHub/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wcaruso.AffectHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "AffectHub/AffectHub-Bridging-Header.h";
